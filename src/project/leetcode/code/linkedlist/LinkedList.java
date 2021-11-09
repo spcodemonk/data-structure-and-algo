@@ -1,5 +1,8 @@
 package project.leetcode.code.linkedlist;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class LinkedList {
 
 	private Node head;
@@ -81,29 +84,6 @@ public class LinkedList {
 
 	}
 
-//Remove duplicate from lsit
-	public void removeDuplicate() {
-		Node i = head;
-
-		while (i != null) {
-
-			Node j = i;
-
-			while (j.next != null) {
-
-				if (i.data == j.next.data) {
-					j.next = j.next.next;
-				} else {
-					j = j.next;
-				}
-
-			}
-
-			i = i.next;
-		}
-
-	}
-
 //Sort the list
 	public void sortLinedList() {
 
@@ -147,31 +127,6 @@ public class LinkedList {
 		}
 
 		System.out.println(i.data);
-	}
-
-//Remove the nth node from linkedlist
-	public void removeNthNodeFromLinkedList() {
-		Node i = head;
-
-		Node j = i;
-
-		int n = 4;
-		int count = 1;
-		while (count <= n - 1) {
-
-			j = j.next;
-			count++;
-		}
-
-		Node prev = null;
-		while (j.next != null) {
-
-			prev = i;
-
-			j = j.next;
-			i = i.next;
-		}
-		prev.next = i.next;
 	}
 
 //Check if there is a cycle or not in LinkedList
@@ -300,11 +255,10 @@ public class LinkedList {
 	// Check if list is palindrome or not
 
 	public boolean palindromeCheck() {
-		
-		
+
 		Node temp = head;
 
-		//1. split the list
+		// 1. split the list
 		Node p = temp;
 		Node q = temp;
 
@@ -326,9 +280,9 @@ public class LinkedList {
 		}
 
 		q.next = null;
-		
-		//2. reverse second list
-		
+
+		// 2. reverse second list
+
 		Node currentNode = secondListStart, nextNode = secondListStart;
 
 		Node prev = null;
@@ -344,51 +298,445 @@ public class LinkedList {
 
 		}
 		currentNode.next = prev;
-		
-		//3. Now start comparing element of both the list from start
-		boolean isPalindrome=true;
+
+		// 3. Now start comparing element of both the list from start
+		boolean isPalindrome = true;
 		temp = head;
 		Node secondReversed = currentNode;
-		while(temp!=null) {
-			
-			if(!(temp.data == secondReversed.data)) {
-				isPalindrome=false;
+		while (temp != null) {
+
+			if (!(temp.data == secondReversed.data)) {
+				isPalindrome = false;
 			}
-			
-			temp=temp.next;
-			secondReversed=secondReversed.next;
-			
-			
+
+			temp = temp.next;
+			secondReversed = secondReversed.next;
+
 		}
 
 		return isPalindrome;
 	}
 
+	// remove all element who match given value
+
+	public void removeAllmaching(int value) {
+
+		Node temp = head;
+
+		Node prev = null;
+		while (temp != null) {
+
+			if (temp.data == value && temp == head) {
+				head = temp.next;
+				temp = temp.next;
+				continue;
+			}
+			if (temp.data == value) {
+
+				prev.next = temp.next;
+				temp = temp.next;
+				continue;
+			}
+			prev = temp;
+			temp = temp.next;
+		}
+
+	}
+
+	// find the greatest element for each element in the linkedlist
+	public void getGreaterNodeInLinkedList() {
+
+		Node temp = head;
+
+		ArrayList<Integer> data = new ArrayList<>();
+
+		int k = 0;
+		for (Node i = temp; i.next != null; i = i.next) {
+
+			int value = 0;
+			for (Node j = i.next; j != null; j = j.next) {
+
+				if (j.data > i.data) {
+					value = j.data;
+					break;
+				}
+			}
+			data.add(value);
+		}
+
+		data.add(data.size(), 0);
+		int[] ints = data.stream().mapToInt(Integer::intValue).toArray();
+
+		System.out.println(Arrays.toString(ints));
+	}
+
+	public int findLenght(LinkedList list) {
+
+		Node temp = list.head;
+
+		int count = 0;
+		while (temp != null) {
+			count++;
+			temp = temp.next;
+		}
+
+		return count;
+
+	}
+
+	// Intersection of two linkedlist
+	public void findInteresectionElementInList(LinkedList list1, LinkedList list2) {
+
+		int l1 = findLenght(list1);
+		int l2 = findLenght(list2);
+		int diff = 0;
+		Node temp = list1.head;
+		Node temp2 = list2.head;
+		int count = 1;
+		if (l1 > l2) {
+			diff = l1 - l2;
+			while (temp != null && count <= diff) {
+				count++;
+				temp = temp.next;
+			}
+		} else {
+			diff = l2 - l1;
+			while (temp2 != null && count <= diff) {
+				count++;
+				temp2 = temp2.next;
+			}
+		}
+
+		while (temp2 != null) {
+
+			if (temp2 == temp) {
+
+			}
+			temp2 = temp2.next;
+			temp = temp.next;
+		}
+
+	}
+
+	// Swapping Nodes in a Linked List
+	public void swapNodeDataInList(int k) {
+		Node temp = head;
+		Node slow = head;
+
+		Node starting = null;
+		int count = 1;
+		while (count <= k - 1) {
+			temp = temp.next;
+			count++;
+
+		}
+		starting = temp;
+
+		while (temp.next != null) {
+			temp = temp.next;
+			slow = slow.next;
+		}
+
+		int val = slow.data;
+		slow.data = starting.data;
+		starting.data = val;
+		System.out.println(slow.data + " " + starting.data);
+
+	}
+
+	// Remove the nth node from linkedlist
+	public void removeNthNodeFromLinkedList(int n) {
+		Node i = head;
+
+		Node j = i;
+
+		int count = 1;
+		while (count <= n - 1) {
+
+			j = j.next;
+			count++;
+		}
+
+		Node prev = null;
+		if (j.next == null) {
+			i.next = null;
+			return;
+		}
+		while (j.next != null) {
+
+			prev = i;
+
+			j = j.next;
+			i = i.next;
+		}
+		prev.next = i.next;
+	}
+
+	// Remove duplicate from sorteed lsit
+	public void removeDuplicate() {
+		Node p = head;
+
+		Node q = null;
+
+		while (p != null && p.next != null) {
+			if (p.data == p.next.data) {
+
+				q = p.next.next;
+
+				if (q == null) {
+					p.next = null;
+					break;
+				}
+				p.next = q;
+
+			}
+
+			if (p.data != p.next.data) {
+				p = p.next;
+
+			}
+		}
+
+	}
+
+	// Reverse a LinkedList WithPosition
+	public Node reverseLinkedList(int left, int right) {
+
+		Node temp = head;
+
+		// 1. Find the nodes
+		int count = 1;
+
+		Node prev = null;
+		Node before = null;
+		Node after = null;
+		while (temp != null) {
+
+			if (count == left) {
+				before = prev;
+//					System.out.println(before.data);
+			}
+
+			if (count == right) {
+				after = temp.next;
+//					System.out.println(after.data);
+				break;
+			}
+			count++;
+			prev = temp;
+			temp = temp.next;
+		}
+		temp.next = null;
+
+		// 2. Reverse the list between the identified nodes.
+
+		Node TempHead = before.next;
+//			System.out.println(TempHead.data);
+
+		Node currentNode = TempHead, nextNode = TempHead;
+
+		prev = null;
+
+		while (nextNode.next != null) {
+			nextNode = nextNode.next;
+
+			currentNode.next = prev;
+
+			prev = currentNode;
+
+			currentNode = nextNode;
+
+		}
+		currentNode.next = prev;
+
+		// 3/ change the node pointers
+		before.next = currentNode;
+		TempHead.next = after;
+
+		return head;
+
+	}
+
+	// Swap list elements in pairs, swapping values
+	public void swapInpairs() {
+
+		Node temp = head;
+		while (temp.next != null) {
+
+			int n = temp.data;
+
+			temp.data = temp.next.data;
+
+			temp.next.data = n;
+
+			if (temp.next.next == null) {
+				break;
+			} else {
+				temp = temp.next.next;
+			}
+
+		}
+	}
+
+	public Node swapPairsWithActualNodes() {
+
+		Node p = head;
+
+		Node newHead = p.next;
+
+		Node q = null;
+		Node temp = null;
+
+		while (true) {
+
+			q = p.next;
+			temp = q.next;
+
+			q.next = p;
+
+			if (temp == null || temp.next == null) {
+				p.next = temp;
+				break;
+			}
+
+			p.next = temp.next;
+
+			p = temp;
+		}
+		return newHead;
+	}
+
+	// Merge In Between Linked Lists
+
+	public void mergeBetweenList(int a, int b, Node list2) {
+		Node temp = head;
+
+		// 1. Find the nodes
+		int count = 0;
+
+		Node prev = null;
+		Node before = null;
+		Node after = null;
+		while (temp != null) {
+
+			if (count == a) {
+				before = prev;
+//				System.out.println(before.data);
+			}
+
+			if (count == b) {
+				after = temp.next;
+//				System.out.println(after.data);
+				break;
+			}
+			count++;
+			prev = temp;
+			temp = temp.next;
+		}
+
+		before.next = list2;
+
+		while (list2.next != null) {
+			list2 = list2.next;
+		}
+
+		list2.next = after;
+
+	}
+
+	// Reverse Nodes in k-Group
+
+	public Node reverseInKGroups() {
+
+		Node start = head;
+		Node p = head;
+		Node q = head;
+		int k = 3;
+
+		Node newHead = null;
+		Node lstPrev = start;
+		while (true) {
+
+			// 1. fin the sublist
+			int count = 1;
+			while (count < k && p != null) {
+
+				count++;
+				p = p.next;
+			}
+			// return if there are no more elements or remaining elements are not equal to K
+			if (p == null) {
+				lstPrev.next = q;
+				break;
+			}
+			
+			//for temorarily assign sublist next pointer to null 
+			q = p.next;
+
+			p.next = null;
+
+			// 2. reverse the sublist
+
+			Node currentNode = start, nextNode = start;
+
+			Node prev = null;
+
+			while (nextNode.next != null) {
+				nextNode = nextNode.next;
+
+				currentNode.next = prev;
+
+				prev = currentNode;
+
+				currentNode = nextNode;
+
+			}
+			currentNode.next = prev;
+			
+			//Correct the pointers
+			if (newHead == null) {
+				newHead = currentNode;
+				lstPrev = start;
+			} else {
+				lstPrev.next = currentNode;
+				lstPrev = start;
+			}
+
+
+			start = q;
+			p = q;
+
+		}
+		return newHead;
+
+	}
+
 	public static void main(String[] args) {
 
 		LinkedList list = new LinkedList();
-
-		list.insertAtHead(1);
+		list.insertAtHead(7);
+		list.insertAtHead(6);
+		list.insertAtHead(5);
 		list.insertAtHead(4);
 		list.insertAtHead(3);
 		list.insertAtHead(2);
 		list.insertAtHead(1);
+		list.insertAtHead(0);
 
 //		LinkedList list2 = new LinkedList();
+//		
 //
-//		list2.insertAtHead(7);
-//		list2.insertAtHead(6);
-//		list2.insertAtHead(5);
-//		list2.insertAtHead(4);
-//		list2.insertAtHead(2);
+//		list2.insertAtHead(1000002);
+//		list2.insertAtHead(1000001);
+//		list2.insertAtHead(1000000);
 
 		System.out.println("-----------------Inupt-----------------------");
 		list.print();
 
-		System.out.println();
-		boolean isPalindrome =  list.palindromeCheck();
-
-		System.out.println("isPalindrome : "+isPalindrome);
+//		System.out.println();
+//		boolean isPalindrome =  list.palindromeCheck();
+//
+//		System.out.println("isPalindrome : "+isPalindrome);
 
 //		list2.print();
 //		
@@ -398,7 +746,10 @@ public class LinkedList {
 ////		Node newList = list.reverseLinkedList();
 //		list.print(newList);
 
-//		list.recursiveSearch(8);
+//		list.mergeBetweenList( 3,4,  list2.head);
+//		list.print();
+//		;
+		list.print(list.reverseInKGroups());
 
 	}
 
