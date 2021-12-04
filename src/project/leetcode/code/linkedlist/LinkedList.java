@@ -168,48 +168,7 @@ public class LinkedList {
 		return currentNode;
 	}
 
-	// Merge 2 sorted lists
-	public static Node MergeSortedLists(LinkedList list, LinkedList list2) {
 
-		Node p = list.head;
-		Node q = list2.head;
-
-		Node sortedHead = null;
-		Node sorted = null;
-		if (p.data < q.data) {
-			sorted = p;
-			p = p.next;
-		} else {
-			sorted = q;
-			q = q.next;
-		}
-
-		sortedHead = sorted;
-
-		while (p != null && q != null) {
-
-			if (p.data < q.data) {
-
-				sorted.next = p;
-				sorted = p;
-				p = p.next;
-			} else {
-				sorted.next = q;
-				sorted = q;
-				q = q.next;
-			}
-		}
-
-		if (p == null) {
-			sorted.next = q;
-		}
-
-		if (q == null) {
-			sorted.next = p;
-		}
-		return sortedHead;
-
-	}
 
 // Find sum of all elements in linkedList
 	public void sumOflinkedList(LinkedList list) {
@@ -499,64 +458,6 @@ public class LinkedList {
 
 	}
 
-	// Reverse a LinkedList WithPosition
-	public Node reverseLinkedList(int left, int right) {
-
-		Node temp = head;
-
-		// 1. Find the nodes
-		int count = 1;
-
-		Node prev = null;
-		Node before = null;
-		Node after = null;
-		while (temp != null) {
-
-			if (count == left) {
-				before = prev;
-//					System.out.println(before.data);
-			}
-
-			if (count == right) {
-				after = temp.next;
-//					System.out.println(after.data);
-				break;
-			}
-			count++;
-			prev = temp;
-			temp = temp.next;
-		}
-		temp.next = null;
-
-		// 2. Reverse the list between the identified nodes.
-
-		Node TempHead = before.next;
-//			System.out.println(TempHead.data);
-
-		Node currentNode = TempHead, nextNode = TempHead;
-
-		prev = null;
-
-		while (nextNode.next != null) {
-			nextNode = nextNode.next;
-
-			currentNode.next = prev;
-
-			prev = currentNode;
-
-			currentNode = nextNode;
-
-		}
-		currentNode.next = prev;
-
-		// 3/ change the node pointers
-		before.next = currentNode;
-		TempHead.next = after;
-
-		return head;
-
-	}
-
 	// Swap list elements in pairs, swapping values
 	public void swapInpairs() {
 
@@ -669,8 +570,8 @@ public class LinkedList {
 				lstPrev.next = q;
 				break;
 			}
-			
-			//for temorarily assign sublist next pointer to null 
+
+			// for temorarily assign sublist next pointer to null
 			q = p.next;
 
 			p.next = null;
@@ -692,8 +593,8 @@ public class LinkedList {
 
 			}
 			currentNode.next = prev;
-			
-			//Correct the pointers
+
+			// Correct the pointers
 			if (newHead == null) {
 				newHead = currentNode;
 				lstPrev = start;
@@ -701,7 +602,6 @@ public class LinkedList {
 				lstPrev.next = currentNode;
 				lstPrev = start;
 			}
-
 
 			start = q;
 			p = q;
@@ -711,17 +611,358 @@ public class LinkedList {
 
 	}
 
+	// Odd even linked list
+
+	public Node oddEvenLinkedList() {
+
+		Node p = head.next;
+		Node prev = head;
+
+		int count = 1;
+
+		Node evenHead = null;
+		Node q = null;
+
+		Node evenPrev = null;
+		while (p != null) {
+
+			if (count % 2 != 0) {
+				evenPrev = p;
+				prev.next = p.next;
+				if (p.next != null) {
+					prev = p.next;
+				}
+
+				if (p.next == null) {
+					q.next = p;
+					q = q.next;
+				}
+
+			} else {
+
+				if (evenHead == null) {
+					evenHead = evenPrev;
+					q = evenHead;
+				} else {
+					q.next = evenPrev;
+					q = evenPrev;
+				}
+
+			}
+			count++;
+
+			p = p.next;
+		}
+
+		q.next = null;
+
+		prev.next = evenHead;
+
+		return head;
+
+	}
+
+	// Remove duplicated all.
+
+	public void removeDuplicateWillAllOfItsOccurrences() {
+
+		Node p = head;
+
+		Node prev = null;
+
+		while (p != null) {
+
+			boolean flag = false;
+			while (p.next != null && p.data == p.next.data) {
+				p = p.next;
+				flag = true;
+			}
+
+			if (flag) {
+				p = p.next;
+
+			}
+
+			if (p != null && p.next != null && p.data == p.next.data) {
+				continue;
+			}
+
+			if (prev == null) {
+				head = p;
+				prev = p;
+			} else {
+				prev.next = p;
+				prev = p;
+			}
+
+			if (p != null)
+				p = p.next;
+		}
+
+	}
+
+	// Merge k sorted lists
+//    public Node mergeKLists(Node[] lists) {
+//        
+//
+//        if(lists.length ==0) return null;
+//        
+//        Node base=null;
+//        
+//        int j=0;
+//        for(int i=0;i<lists.length;i++){
+//            
+//                if(lists[i]!=null){
+//                        if(base==null){
+//                            base= lists[i];
+//                        }else{
+//                           base=  MergeSortedLists(base,lists[i]);
+//                        }
+//                }
+//            }
+//        
+//      return base;
+//        
+//    }  
+
+	// Reverse a LinkedList WithPosition
+	public Node reverseLinkedList(int left, int right) {
+
+		Node p = head;
+
+		// 1. Find the nodes
+		int count = 1;
+
+		Node prev = p;
+		Node before = null;
+		Node after = null;
+		while (p != null) {
+
+			if (count == left) {
+				before = prev;
+			}
+
+			if (count == right) {
+				after = p.next;
+				break;
+			}
+			count++;
+			prev = p;
+			p = p.next;
+		}
+		p.next = null;
+
+		// 2. Reverse the list between the identified nodes.
+
+		Node TempHead = before.next;
+//			System.out.println(TempHead.data);
+
+		Node currentNode = TempHead, nextNode = TempHead;
+
+		prev = null;
+
+		while (nextNode.next != null) {
+			nextNode = nextNode.next;
+
+			currentNode.next = prev;
+
+			prev = currentNode;
+
+			currentNode = nextNode;
+
+		}
+		currentNode.next = prev;
+
+		// 3/ change the node pointers
+		before.next = currentNode;
+		TempHead.next = after;
+
+		return head;
+
+	}
+	
+	//Rotate list
+	
+	public void rotateList() {
+		
+		int totalRotateCount=5;
+		Node current = head.next;
+		
+		int prevVal=head.data;
+		
+		int count=1;
+		
+		
+		while(count<totalRotateCount) {
+			
+			int temp = current.data;
+			current.data=prevVal;
+			
+			if(current.next==null) {
+				head.data=temp;
+				current=head.next;
+				prevVal=head.data;
+				count++;
+			}else {
+				current=current.next;
+				prevVal=temp;
+			}
+			
+			
+		}
+	}
+
+	//	partition List --dont refer
+	//Correct solution - Create 2 sepeare list one is for lesser element than x and another is for greter element than x and the nfinally leser end to greter head and return lesser head
+	
+	public void partitionList() {
+
+		int x = 2;
+		
+		Node p=head;
+		Node greaterThanx = null;
+		Node greaterThanXPrev = null;
+		
+		Node prev=null;
+		
+		while(p!=null) {
+			
+			if(greaterThanx==null && p.data>=x) {
+				greaterThanx=p;
+				greaterThanXPrev=prev;
+			}
+			
+			if(p.data==x) {
+				break;
+			}
+			prev=p;
+			p=p.next;
+			
+		}
+		
+		prev=p;
+		p=p.next;
+		
+		while(p!=null) {
+			
+			if(p.data<x) {
+				
+				Node q=p;
+				
+				if(p.next!=null && p.next.data<x) {
+				
+				
+				
+				}else {
+					prev.next=p.next;
+					prev=p.next;
+				}
+				p=p.next;
+				
+				if(greaterThanXPrev==null) {
+					q.next=head;
+					head=q;
+					greaterThanXPrev=head;
+				}else {
+				greaterThanXPrev.next=q;
+				
+				q.next=greaterThanx;
+				
+				greaterThanXPrev=q;
+				}
+			}else {
+				p=p.next;
+			}
+		}
+	}
+	
+	// Merge 2 sorted lists
+	public static Node mergeSortedLists(Node list, Node list2) {
+
+		Node p = list;
+		Node q = list2;
+
+		Node sortedHead = null;
+		Node sorted = null;
+		if (p.data < q.data) {
+			sorted = p;
+			p = p.next;
+		} else {
+			sorted = q;
+			q = q.next;
+		}
+
+		sortedHead = sorted;
+
+		while (p != null && q != null) {
+
+			if (p.data < q.data) {
+
+				sorted.next = p;
+				sorted = p;
+				p = p.next;
+			} else {
+				sorted.next = q;
+				sorted = q;
+				q = q.next;
+			}
+		}
+
+		if (p == null) {
+			sorted.next = q;
+		}
+
+		if (q == null) {
+			sorted.next = p;
+		}
+		return sortedHead;
+
+	}
+	public Node findMidlleWithSLowFastPointer(Node head) {
+		 if (head == null)
+	           return head;
+		 
+		Node slow=head;
+		Node fast= head;
+		
+		while(fast.next!=null && fast.next.next!=null) {
+			
+			slow=slow.next;
+			fast=fast.next.next;
+		}
+		
+		
+		return slow;
+	}
+	
+	//Merge sort
+	public Node mergeSort(Node head) {
+		
+		if(head==null || head.next==null)return head;
+		
+		Node middle = findMidlleWithSLowFastPointer( head);
+		
+		Node nextOfMiddle= middle.next;
+		
+		middle.next=null;
+		
+		Node leftSide=mergeSort(head);
+		
+		Node rightSide=mergeSort(nextOfMiddle);
+		
+		return mergeSortedLists( leftSide,  rightSide);
+	}
 	public static void main(String[] args) {
 
 		LinkedList list = new LinkedList();
-		list.insertAtHead(7);
+//		list.insertAtHead(8);
+//		list.insertAtHead(2);
+//		list.insertAtHead(2);
+//		list.insertAtHead(5);
 		list.insertAtHead(6);
-		list.insertAtHead(5);
-		list.insertAtHead(4);
 		list.insertAtHead(3);
-		list.insertAtHead(2);
 		list.insertAtHead(1);
-		list.insertAtHead(0);
+		list.insertAtHead(2);
 
 //		LinkedList list2 = new LinkedList();
 //		
@@ -749,7 +990,16 @@ public class LinkedList {
 //		list.mergeBetweenList( 3,4,  list2.head);
 //		list.print();
 //		;
-		list.print(list.reverseInKGroups());
+//		list.print(list.reverseInKGroups());
+//		list.oddEvenLinkedList();
+//		list.removeDuplicateWillAllOfItsOccurrences();
+//		list.reverseLinkedList(1, 2);
+		
+//		list.rotateList();
+		
+//		list.partitionList();
+		Node newHead= list.mergeSort(list.head);
+		list.print(newHead);
 
 	}
 
