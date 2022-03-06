@@ -1,7 +1,8 @@
 package project.leetcode.stream.example;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,13 +12,14 @@ public class StreamExamples {
 	static List<Employee> employeeList = new ArrayList<Employee>();
 	
 	static {
-		employeeList.add(new Employee(111, "Jiya Brein", 32, "Female", "HR", 2011, 25000.0));
+		
 		employeeList.add(new Employee(122, "Paul Niksui", 25, "Male", "Sales And Marketing", 2015, 13500.0));
 		employeeList.add(new Employee(133, "Jiya Brein", 29, "Male", "Infrastructure", 2012, 18000.0));
 		employeeList.add(new Employee(144, "Murali Gowda", 28, "Male", "Product Development", 2014, 32500.0));
-//		employeeList.add(new Employee(155, "Nima Roy", 27, "Female", "HR", 2013, 22700.0));
-//		employeeList.add(new Employee(166, "Iqbal Hussain", 43, "Male", "Security And Transport", 2016, 10500.0));
-//		employeeList.add(new Employee(177, "Manu Sharma", 35, "Male", "Account And Finance", 2010, 27000.0));
+		employeeList.add(new Employee(155, "Nima Roy", 27, "Female", "HR", 2013, 22700.0));
+		employeeList.add(new Employee(166, "Iqbal Hussain", 43, "Male", "Security And Transport", 2016, 10500.0));
+		employeeList.add(new Employee(177, "Manu Sharma", 35, "Male", "Account And Finance", 2010, 27000.0));
+		employeeList.add(new Employee(111, "Jiya Brein", 32, "Female", "HR", 2011, 25000.0));
 //		employeeList.add(new Employee(188, "Wang Liu", 31, "Male", "Product Development", 2015, 34500.0));
 //		employeeList.add(new Employee(199, "Amelia Zoe", 24, "Female", "Sales And Marketing", 2016, 11500.0));
 //		employeeList.add(new Employee(200, "Jaden Dough", 38, "Male", "Security And Transport", 2015, 11000.5));
@@ -39,8 +41,24 @@ public class StreamExamples {
 		
 //		Long n = employeeList.stream().sorted(Comparator.comparing(Employee::getAge).reversed()).limit(2).distinct().collect(Collectors.toList());
 		
-		System.out.println(employeeList.stream().sorted(Comparator.comparing(Employee::getAge).reversed()).limit(2).map(Employee::getName).distinct().collect(Collectors.toList()));
+//		System.out.println(employeeList.stream().sorted(Comparator.comparing(Employee::getAge).reversed()).limit(2).map(Employee::getName).distinct().collect(Collectors.toList()));
 		
+//		employeeList.stream().dropWhile(obj-> obj.getAge()<30).skip(1).collect(Collectors.toList()).forEach(System.out::println);
+		
+//		System.out.println(employeeList.stream().filter(obj-> obj.getAge()> 25).findFirst().get());
+//		
+		List<Integer> array = Arrays.asList(0, 0, 4, 6, 8);
+//		  
+		int sum = array.stream().reduce(2,(a,b)->a+b);
+		
+//		 String[] array = { "Geeks", "for", "Geeks" };
+//		 
+//		 System.out.println(Arrays.stream(array).reduce((a,b)-> a+"-"+b).get());
+		 
+		Map<String,String> data = Collections.EMPTY_MAP;
+		data.put("1", "1");
+		System.out.println(data);
+//		System.out.println(sum);
 		
 		// Query 1 : How many male and female employees are there in the organization?
 //				method1();

@@ -2,7 +2,9 @@ package project.leetcode.code.tree;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -16,8 +18,8 @@ public class BinaryTree {
 	int sumOflestLeavesVal;
 
 	TreeNode sesrchNode = null;
-	
-	//insert element in binary tree
+
+	// insert element in binary tree
 	public TreeNode add(int data) {
 
 		TreeNode newNode = new TreeNode(data);
@@ -50,7 +52,7 @@ public class BinaryTree {
 		return root;
 	}
 
-	//Sum of values left leaf
+	// Sum of values left leaf
 	public int sumOfLeftlevesResult(TreeNode rootNode) {
 		sumOfLeftleves(rootNode);
 		return sumOflestLeavesVal;
@@ -78,8 +80,8 @@ public class BinaryTree {
 		}
 		return false;
 	}
-	
-	//Count total leaf nodes
+
+	// Count total leaf nodes
 	public int numberOfLeafNodesTotal(TreeNode rootNode) {
 
 		return numberOfLeafNodes(rootNode);
@@ -127,8 +129,7 @@ public class BinaryTree {
 		return count;
 	}
 
-
-	//Search in binary search tree
+	// Search in binary search tree
 	public TreeNode searchinBinarySearchTree(TreeNode rootNode, int value) {
 		searchNode(rootNode, value);
 		return sesrchNode;
@@ -161,75 +162,75 @@ public class BinaryTree {
 		}
 
 	}
-	
-	//Depth first search using stack 
+
+	// Depth first search using stack
 	public void depthFirstSearchTraverslaWithStack(TreeNode rootNode) {
-	
+
 		System.out.println("------------------------------");
 		Stack<TreeNode> data = new Stack<>();
 		data.add(rootNode);
-		
-		while(!data.isEmpty()) {
+
+		while (!data.isEmpty()) {
 			TreeNode node = data.pop();
-			
-			if(node.rightNode!=null) {
+
+			if (node.rightNode != null) {
 				data.add(node.rightNode);
 			}
-			if(node.leftNode!=null) {
+			if (node.leftNode != null) {
 				data.add(node.leftNode);
 			}
-			
-			
+
 			System.out.println(node.data);
-			
+
 		}
-		
+
 	}
-	
-	//breadth first search suing queue
+
+	// breadth first search suing queue
 	public void bredthFirstSearch(TreeNode rootNode) {
 		System.out.println("------------------------------");
 		Queue<TreeNode> data = new ArrayDeque<>();
-		
+
 		data.add(rootNode);
-		
-		while(!data.isEmpty()) {
+
+		while (!data.isEmpty()) {
 			TreeNode node = data.remove();
-			
-			if(node.leftNode!=null) {
+
+			if (node.leftNode != null) {
 				data.add(node.leftNode);
 			}
-			
-			if(node.rightNode!=null) {
+
+			if (node.rightNode != null) {
 				data.add(node.rightNode);
 			}
 			System.out.println(node.data);
 		}
 	}
-	
-	//left most node in a tree
+
+	// left most node in a tree
 	public void leftMostNodeInLastRwo(TreeNode rootNode) {
 		System.out.println("------------------------------");
 		Queue<TreeNode> data = new ArrayDeque<>();
-		
+
 		data.add(rootNode);
-		
-		TreeNode left=null;
-		while(!data.isEmpty()) {
+
+		TreeNode left = null;
+		while (!data.isEmpty()) {
 			TreeNode node = data.remove();
-			
-			if(node.leftNode!=null) {
-				left= node.leftNode;
+
+			if (node.leftNode != null) {
+				left = node.leftNode;
 				data.add(node.leftNode);
 			}
-			
-			if(node.rightNode!=null) {
+
+			if (node.rightNode != null) {
 				data.add(node.rightNode);
 			}
 
 		}
 		System.out.println(left.data);
 	}
+
 	public List<Integer> inorderTraversal(TreeNode rootNode, List<Integer> list) {
 
 		if (rootNode != null) {
@@ -274,7 +275,7 @@ public class BinaryTree {
 
 	}
 
-	//find max height/depth of tree
+	// find max height/depth of tree
 	public int findHeightOrDepthOfTree(TreeNode rootNode) {
 
 		if (rootNode == null) {
@@ -285,31 +286,30 @@ public class BinaryTree {
 
 		int depthr = findHeightOrDepthOfTree(rootNode.rightNode);
 
-		return Math.max(depthl, depthr)+1;
-
+		return Math.max(depthl, depthr) + 1;
 
 	}
-	
-	//find min depth of tree
+
+	// find min depth of tree
 	public int findminDepthOfTree(TreeNode rootNode) {
 
 		if (rootNode == null) {
 			return 0;
 		}
-		
-		 if (rootNode.leftNode== null && rootNode.rightNode== null)
-			    return 1;
-			   
-			    int depthl = Integer.MAX_VALUE, depthr = Integer.MAX_VALUE;
-			    
-		 depthl = findminDepthOfTree(rootNode.leftNode);
 
-		 depthr = findminDepthOfTree(rootNode.rightNode);
+		if (rootNode.leftNode == null && rootNode.rightNode == null)
+			return 1;
 
-		return Math.min(depthl, depthr)+1;
+		int depthl = Integer.MAX_VALUE, depthr = Integer.MAX_VALUE;
+
+		depthl = findminDepthOfTree(rootNode.leftNode);
+
+		depthr = findminDepthOfTree(rootNode.rightNode);
+
+		return Math.min(depthl, depthr) + 1;
 	}
 
-	//Coult all nodes having 2 child nodes
+	// Coult all nodes having 2 child nodes
 	public int countFullNodesInTree(TreeNode rootNode) {
 
 		int count = 0;
@@ -324,112 +324,425 @@ public class BinaryTree {
 //		int depthl = countAllNodes(rootNode.leftNode);
 //		
 //		int depthr =  countAllNodes(rootNode.rightNode);
-		count+=countFullNodesInTree(rootNode.leftNode) + countFullNodesInTree(rootNode.rightNode);
+		count += countFullNodesInTree(rootNode.leftNode) + countFullNodesInTree(rootNode.rightNode);
 
 		return count;
 	}
-	
-	//find all nodes of tree
+
+	// find all nodes of tree
 	public int countAllNodesOfTree(TreeNode rootNode) {
-		int count=0;
+		int count = 0;
 		if (rootNode == null) {
 			return 0;
-		}else {
+		} else {
 			count++;
 		}
 
-		count+=countAllNodesOfTree(rootNode.leftNode)+countAllNodesOfTree(rootNode.rightNode);
+		count += countAllNodesOfTree(rootNode.leftNode) + countAllNodesOfTree(rootNode.rightNode);
 		return count;
 
 	}
-	
-	//bottom view of a binary tree
+
+	// bottom view of a binary tree
 	public void bottomViewOfBinaryTree(TreeNode rootNode) {
-		
-		
-		Map<Integer,Integer> data = new HashMap<>();
-		
+
+		Map<Integer, Integer> data = new HashMap<>();
+
 		Queue<TreeNode> queue = new ArrayDeque<>();
-		
+
 		int hd = 0;
-		rootNode.hd=hd;
+		rootNode.hd = hd;
 		queue.add(rootNode);
-		
-		while(!queue.isEmpty()) {
-			
+
+		while (!queue.isEmpty()) {
+
 			TreeNode node = queue.remove();
-			
+
 			data.put(node.hd, node.data);
-			
-			if(node.leftNode!=null) {
-				node.leftNode.hd=node.hd-1;
+
+			if (node.leftNode != null) {
+				node.leftNode.hd = node.hd - 1;
 				queue.add(node.leftNode);
 			}
-			
-			if(node.rightNode!=null) {
-				node.rightNode.hd=node.hd+1;
+
+			if (node.rightNode != null) {
+				node.rightNode.hd = node.hd + 1;
 				queue.add(node.rightNode);
 			}
-			
+
 		}
-		
+
 		data.entrySet().stream().forEach(entry -> System.out.println(entry.getValue()));
-		
+
 	}
 	
-	//vertical order traversal  of binary tree
-	public void levlOrderTraversalBinaryTree(TreeNode rootNode) {
-		
-		
-		Map<Integer,List<Integer>> data = new HashMap<>();
-		
+	//Top view of binary treee
+	public void topViewOfBinaryTree(TreeNode rootNode) {
+		Map<Integer, List<Integer>> data = new HashMap<>();
+
 		Queue<TreeNode> queue = new ArrayDeque<>();
-		
+
 		int hd = 0;
-		rootNode.hd=hd;
+		rootNode.hd = hd;
 		queue.add(rootNode);
-		
-		while(!queue.isEmpty()) {
-			
+
+		while (!queue.isEmpty()) {
+
 			TreeNode node = queue.remove();
-			
-			if(data.containsKey(node.hd)) {
-				List<Integer> tmpList=data.get(node.hd);
+
+			if (data.containsKey(node.hd)) {
+				List<Integer> tmpList = data.get(node.hd);
 				tmpList.add(node.data);
 				data.put(node.hd, tmpList);
-			}else {
-				List<Integer> tmpList=new ArrayList<>();
+			} else {
+				List<Integer> tmpList = new ArrayList<>();
 				tmpList.add(node.data);
-				data.put(node.hd,tmpList );
+				data.put(node.hd, tmpList);
 			}
-			
-			if(node.leftNode!=null) {
-				node.leftNode.hd=node.hd-1;
+
+			if (node.leftNode != null) {
+				node.leftNode.hd = node.hd - 1;
 				queue.add(node.leftNode);
 			}
-			
-			if(node.rightNode!=null) {
-				node.rightNode.hd=node.hd+1;
+
+			if (node.rightNode != null) {
+				node.rightNode.hd = node.hd + 1;
 				queue.add(node.rightNode);
 			}
-			
+
 		}
+
+
+
+		List<Integer> dt = data.entrySet().stream().map(entry -> {
+			return entry.getValue().get(0);
+		}).collect(Collectors.toList());
+
+		System.out.println(dt);
+	}
+	
+	//Left view of a tree 
+	public void leftViewOfATree(TreeNode rootNode) {
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		Map<Integer,List<Integer>> data = new HashMap<>();
+		int level=0;
+		queue.add(rootNode);
+		queue.add(null);
 		
-//		data.entrySet().stream().forEach(entry -> System.out.println(entry.getValue()));
+		ArrayList<Integer> lst = new ArrayList<>();
+		data.put(level, lst);
 		
-		List<List<Integer>> dt=data.entrySet().stream().map(entry ->{
-			List<Integer> lst = new ArrayList<>();
+		
+		StringBuilder sb = new StringBuilder();
+		while (!queue.isEmpty() ) {
+
+			TreeNode node = queue.remove();
+			if(node==null) {
+				if(queue.peek()==null) {
+					break;
+				}
+				queue.add(null);
+				level=level+1;
+				lst = new ArrayList<>();
+				data.put(level, lst);
+			}else {
+					lst = (ArrayList<Integer>) data.get(level);
+					lst.add(node.data);
+				data.put(level, lst);
+			}
 			
-			lst.addAll(entry.getValue());
-			return lst.stream().sorted().collect(Collectors.toList());
+			if (node != null && node.leftNode != null) {
+				queue.add(node.leftNode);
+			}
+
+			if (node != null && node.rightNode != null) {
+				queue.add(node.rightNode);
+			}
+
+		}
+		List<Integer> dt = data.entrySet().stream().map(entry -> {
+			return entry.getValue().get(0);
 		}).collect(Collectors.toList());
 		
 		System.out.println(dt);
-		
 	}
 	
-	public boolean  symetricTree(TreeNode root1,TreeNode root2) {
+	//right view of a binary tree 
+	public void rightViewOfATree(TreeNode rootNode) {
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		Map<Integer,List<Integer>> data = new HashMap<>();
+		int level=0;
+		queue.add(rootNode);
+		queue.add(null);
 		
+		ArrayList<Integer> lst = new ArrayList<>();
+		data.put(level, lst);
+		
+		
+		StringBuilder sb = new StringBuilder();
+		while (!queue.isEmpty() ) {
+
+			TreeNode node = queue.remove();
+			if(node==null) {
+				if(queue.peek()==null) {
+					break;
+				}
+				queue.add(null);
+				level=level+1;
+				lst = new ArrayList<>();
+				data.put(level, lst);
+			}else {
+					lst = (ArrayList<Integer>) data.get(level);
+					lst.add(node.data);
+				data.put(level, lst);
+			}
+			
+			if (node != null && node.leftNode != null) {
+				queue.add(node.leftNode);
+			}
+
+			if (node != null && node.rightNode != null) {
+				queue.add(node.rightNode);
+			}
+
+		}
+		List<Integer> dt = data.entrySet().stream().map(entry -> {
+			return entry.getValue().get(entry.getValue().size()-1);
+		}).collect(Collectors.toList());
+		
+		System.out.println(dt);
+	}
+
+	//Find Largest Value in Each Tree Row
+	public void largestValueInEachRow(TreeNode rootNode) {
+		
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		Map<Integer,List<Integer>> data = new HashMap<>();
+		int level=0;
+		queue.add(rootNode);
+		queue.add(null);
+		
+		ArrayList<Integer> lst = new ArrayList<>();
+		data.put(level, lst);
+		
+		
+		StringBuilder sb = new StringBuilder();
+		while (!queue.isEmpty() ) {
+
+			TreeNode node = queue.remove();
+			if(node==null) {
+				if(queue.peek()==null) {
+					break;
+				}
+				queue.add(null);
+				level=level+1;
+				lst = new ArrayList<>();
+				data.put(level, lst);
+			}else {
+					lst = (ArrayList<Integer>) data.get(level);
+					lst.add(node.data);
+				data.put(level, lst);
+			}
+			
+			if (node != null && node.leftNode != null) {
+				queue.add(node.leftNode);
+			}
+
+			if (node != null && node.rightNode != null) {
+				queue.add(node.rightNode);
+			}
+
+		}
+		List<Integer> dt = data.entrySet().stream().map(entry -> {
+			return entry.getValue().stream().sorted().collect(Collectors.toList()).get(entry.getValue().size()-1);
+		}).collect(Collectors.toList());
+		
+		System.out.println(dt);
+	}
+	
+	//Even Odd Tree
+public void evenOddTree(TreeNode rootNode) {
+		
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		Map<Integer,List<Integer>> data = new HashMap<>();
+		int level=0;
+		queue.add(rootNode);
+		queue.add(null);
+		
+		ArrayList<Integer> lst = new ArrayList<>();
+		data.put(level, lst);
+		
+		
+		StringBuilder sb = new StringBuilder();
+		while (!queue.isEmpty() ) {
+
+			TreeNode node = queue.remove();
+			if(node==null) {
+				if(queue.peek()==null) {
+					break;
+				}
+				queue.add(null);
+				level=level+1;
+				lst = new ArrayList<>();
+				data.put(level, lst);
+			}else {
+					lst = (ArrayList<Integer>) data.get(level);
+					lst.add(node.data);
+				data.put(level, lst);
+			}
+			
+			if (node != null && node.leftNode != null) {
+				queue.add(node.leftNode);
+			}
+
+			if (node != null && node.rightNode != null) {
+				queue.add(node.rightNode);
+			}
+
+		}
+		
+		
+		
+		for (Map.Entry<Integer, List<Integer>> entry : data.entrySet()) {
+
+			int treeLevel = entry.getKey();
+			List<Integer> levelList = entry.getValue();
+			if (treeLevel % 2 == 0) {
+				int prevEven = Integer.MIN_VALUE;
+				for (int i = 0; i < levelList.size(); i++) {
+					int val = levelList.get(i);
+
+					if ((val <= prevEven) || val % 2 == 0) {
+						System.out.println(false);
+					}
+					prevEven = val;
+				}
+			} else {
+				int prevOdd = Integer.MAX_VALUE;
+				for (int i = 0; i < levelList.size(); i++) {
+					int val = levelList.get(i);
+
+					if ((val >= prevOdd) || val % 2 != 0) {
+						System.out.println(false);
+					}
+					prevOdd = val;
+				}
+			}
+		}
+		System.out.println(true);
+    }
+//		List<Integer> dt = data.entrySet().stream().map(entry -> {
+//			return entry.getValue().stream().sorted().collect(Collectors.toList()).get(entry.getValue().size()-1);
+//		}).collect(Collectors.toList());
+//		
+//		System.out.println(dt);
+
+	// vertical order traversal of binary tree
+	public void levlOrderTraversalBinaryTree(TreeNode rootNode) {
+
+		Map<Integer, List<Integer>> data = new HashMap<>();
+
+		Queue<TreeNode> queue = new ArrayDeque<>();
+
+		int hd = 0;
+		rootNode.hd = hd;
+		queue.add(rootNode);
+
+		while (!queue.isEmpty()) {
+
+			TreeNode node = queue.remove();
+
+			if (data.containsKey(node.hd)) {
+				List<Integer> tmpList = data.get(node.hd);
+				tmpList.add(node.data);
+				data.put(node.hd, tmpList);
+			} else {
+				List<Integer> tmpList = new ArrayList<>();
+				tmpList.add(node.data);
+				data.put(node.hd, tmpList);
+			}
+
+			if (node.leftNode != null) {
+				node.leftNode.hd = node.hd - 1;
+				queue.add(node.leftNode);
+			}
+
+			if (node.rightNode != null) {
+				node.rightNode.hd = node.hd + 1;
+				queue.add(node.rightNode);
+			}
+
+		}
+
+//		data.entrySet().stream().forEach(entry -> System.out.println(entry.getValue()));
+
+		List<List<Integer>> dt = data.entrySet().stream().map(entry -> {
+			List<Integer> lst = new ArrayList<>();
+
+			lst.addAll(entry.getValue());
+			return lst.stream().sorted().collect(Collectors.toList());
+		}).collect(Collectors.toList());
+
+		System.out.println(dt);
+
+	}
+	
+	//level order traversal
+	public void levelOrderTraversal(TreeNode rootNode) {
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		Map<Integer,List<Integer>> data = new HashMap<>();
+		int level=0;
+		queue.add(rootNode);
+		queue.add(null);
+		
+		ArrayList<Integer> lst = new ArrayList<>();
+		data.put(level, lst);
+		
+		
+		StringBuilder sb = new StringBuilder();
+		while (!queue.isEmpty() ) {
+
+			TreeNode node = queue.remove();
+			if(node==null) {
+				if(queue.peek()==null) {
+					break;
+				}
+				queue.add(null);
+				level=level+1;
+				lst = new ArrayList<>();
+				data.put(level, lst);
+			}else {
+					lst = (ArrayList<Integer>) data.get(level);
+					lst.add(node.data);
+				data.put(level, lst);
+			}
+			
+			if (node != null && node.leftNode != null) {
+				queue.add(node.leftNode);
+			}
+
+			if (node != null && node.rightNode != null) {
+				queue.add(node.rightNode);
+			}
+
+		}
+		
+//		data.entrySet().stream().forEach(entry -> System.out.println(entry.getKey() +" ---> "+entry.getValue()) );
+		
+		List<List<Integer>> dt = data.entrySet().stream().map(entry -> {
+			List<Integer> lst1 = new ArrayList<>();
+
+			lst1.addAll(entry.getValue());
+			return lst1;
+		}).collect(Collectors.toList());
+
+		System.out.println(dt);
+
+	}
+	
+
+	public boolean symetricTree(TreeNode root1, TreeNode root2) {
+
 		int count = 0;
 		Stack<TreeNode> data = new Stack<>();
 		Stack<TreeNode> data2 = new Stack<>();
@@ -439,29 +752,35 @@ public class BinaryTree {
 		while (!data.isEmpty() && !data2.isEmpty()) {
 			TreeNode node = data.pop();
 			TreeNode node2 = data2.pop();
-			
-			if(!(node.leftNode != null && node2.leftNode!=null && node.leftNode.data==node2.leftNode.data)) {
+
+			if (!(node.leftNode != null && node2.leftNode != null && node.leftNode.data == node2.leftNode.data)) {
 				return false;
 			}
 			if (node.leftNode != null) {
 				data.add(node.leftNode);
 			}
-			
-			if(!(node.rightNode != null && node2.rightNode!=null && node.rightNode.data==node2.rightNode.data)) {
+
+			if (!(node.rightNode != null && node2.rightNode != null && node.rightNode.data == node2.rightNode.data)) {
 				return false;
 			}
 			if (node.rightNode != null) {
 				data.add(node.rightNode);
 			}
 		}
-		
-		System.out.println("proccessing done"+data.size());
+
+		System.out.println("proccessing done" + data.size());
 
 		return true;
-		
-	}
-	
-	
 
+	}
+	public int sumOfAllNodes(TreeNode rootNode) {
+		
+		if(rootNode==null) {
+			return 0;
+		}		
+
+		return rootNode.data + (sumOfAllNodes(rootNode.leftNode) + sumOfAllNodes(rootNode.rightNode));
+
+	}
 
 }

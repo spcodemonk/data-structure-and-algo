@@ -23,9 +23,9 @@ public class BinaryTreeTest {
 //		tree1.add(20);
 //		tree1.add(15);
 //		tree1.add(30);
-//		tree1.add(1);
+//		
 //		TreeNode node1= tree1.add(7);
-		
+////		
 		
 		
 //		tree.inOrderTraversal(node);
@@ -33,7 +33,14 @@ public class BinaryTreeTest {
 		List<Integer> list = new ArrayList<>();
 		
 //		 tree.bottomViewOfBinaryTree(node);
-		tree.levlOrderTraversalBinaryTree(node);
+//		tree.levlOrderTraversalBinaryTree(node);
+//		tree.levelOrderTraversal(node);
+//		tree.largestValueInEachRow(node);
+//		tree.evenOddTree(node);
+		System.out.println(tree.sumOfAllNodes(node));
+//		tree.topViewOfBinaryTree(node);
+//		tree.leftViewOfATree(node);
+//		tree.rightViewOfATree(node);
 //		//InOrder sorted traversa.
 //		List<Integer> data =  tree.inorderTraversal(node, list);
 //		System.out.println(data);
