@@ -37,7 +37,10 @@ public class BinaryTreeTest {
 //		tree.levelOrderTraversal(node);
 //		tree.largestValueInEachRow(node);
 //		tree.evenOddTree(node);
-		System.out.println(tree.sumOfAllNodes(node));
+//		System.out.println(tree.sumOfAllNodes(node));
+		
+//		System.out.println(tree.leafSimilarTrees(node,null));
+		tree.maxLevelSum(node);
 //		tree.topViewOfBinaryTree(node);
 //		tree.leftViewOfATree(node);
 //		tree.rightViewOfATree(node);

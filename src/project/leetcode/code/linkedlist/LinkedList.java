@@ -168,6 +168,8 @@ public class LinkedList {
 		return currentNode;
 	}
 
+	
+	
 
 
 // Find sum of all elements in linkedList
@@ -952,28 +954,189 @@ public class LinkedList {
 		
 		return mergeSortedLists( leftSide,  rightSide);
 	}
+	
+		//Addition of 2 linkedList
+	public void addtionOfTwoLists(LinkedList l1, LinkedList l2) {
+		//1. Create a new linkedList	
+		Node newHead=null; Node currentHead=null;
+		
+
+		//3. Apend leaading zeros if one of the list is small
+		int length1 = findLenght(l1);
+		int length2 = findLenght(l2);
+		Node tempNode=null;
+		if (length1 < length2) {
+			
+			int count = length2 - length1;
+
+			Node newZeorHead= null;
+			Node newZerocurr=null;
+			while (count >0) {
+				
+				if (newZeorHead == null) {
+					newZeorHead = new Node(0);
+					newZerocurr = newZeorHead;
+				}else {
+					Node nwNd = new Node(0);
+					newZerocurr.next=nwNd;
+					newZerocurr=nwNd;
+				}
+				
+				count--;
+			}
+			newZerocurr.next=l1.head;
+			
+			l1.head=newZeorHead;
+			
+		} else if (length1 > length2){
+			int count = length1 - length2;
+			Node newZeorHead= null;
+			Node newZerocurr=null;
+			while (count >0) {
+				
+				if (newZeorHead == null) {
+					newZeorHead = new Node(0);
+					newZerocurr = newZeorHead;
+				}else {
+					Node nwNd = new Node(0);
+					newZerocurr.next=nwNd;
+					newZerocurr=nwNd;
+				}
+				
+				count--;
+			}
+			newZerocurr.next = l2.head;
+
+			l2.head = newZeorHead;
+			
+		}
+
+		l1.print(l1.head);
+		l2.print(l2.head);
+		
+		
+		Node head = l1.reverseLinkedList();
+		Node head2 = l2.reverseLinkedList();
+		System.out.println("-------------------After Reverse--------------------");
+		l1.print(head);
+		l2.print(head2);
+		
+		
+		
+		
+		
+		//2.addition of 2 lists
+		int carry=0;
+		int reminder =0;
+		Node temp1 = head;
+		Node temp2= head2;
+		while(temp1!=null) {
+			
+			int sum = temp1.data+temp2.data+carry;
+			carry=0;
+//			
+			
+			if((sum/10) != 0 ) {
+				
+				reminder = sum%10;
+				carry = sum/10; 
+				
+				if(newHead==null) {
+					newHead=new Node(reminder); 
+					currentHead=newHead;
+				}else {
+					Node node=new Node(reminder);
+					
+					currentHead.next=node;
+					currentHead=node;
+				}
+			}else {
+				
+				if(newHead==null) {
+					newHead=new Node(sum);
+					currentHead=newHead;
+				}else {
+					Node node=new Node(sum);
+					
+					currentHead.next=node;
+					currentHead=node;
+				}
+			}
+			
+			temp1=temp1.next;
+			temp2=temp2.next;
+		}
+		if(carry!=0) {
+			Node node=new Node(carry);
+			
+			currentHead.next=node;
+			currentHead=node;
+		}
+		System.out.println("---------------------Addition Result---------------------");
+		this.print(newHead);
+		
+	}
+	
+	//143. Reorder List
+	public Node reOrderList(Node head) {
+		
+		Node temp=head;
+		while(temp!=null && temp.next!=null) {
+			
+			//1. find the last node from last and also find prev of last and point prev to null
+			Node last = null;
+			Node lstFind=temp;
+			Node lastPrev=null;
+			while(lstFind.next!=null) {
+				lastPrev=lstFind;
+				
+				lstFind=lstFind.next;
+				
+			}
+			last=lstFind;
+			lastPrev.next=null;
+			
+			//2. Change pointers
+			last.next=temp.next;
+			temp.next=last;
+			
+			//3. Incremet the counter
+			temp=last.next;
+			
+		}
+		System.out.println("SP");
+		
+		this.print();
+		
+		return null;
+	}
 	public static void main(String[] args) {
 
 		LinkedList list = new LinkedList();
-//		list.insertAtHead(8);
-//		list.insertAtHead(2);
-//		list.insertAtHead(2);
-//		list.insertAtHead(5);
-		list.insertAtHead(6);
-		list.insertAtHead(3);
-		list.insertAtHead(1);
-		list.insertAtHead(2);
 
-//		LinkedList list2 = new LinkedList();
+//		list.insertAtHead(9);
+//		list.insertAtHead(9);
+		list.insertAtHead(5);
+		list.insertAtHead(4);
+		list.insertAtHead(3);
+		list.insertAtHead(2);
+		list.insertAtHead(1);
+
+		LinkedList list2 = new LinkedList();
 //		
 //
-//		list2.insertAtHead(1000002);
-//		list2.insertAtHead(1000001);
-//		list2.insertAtHead(1000000);
+//		list2.insertAtHead(9);
+//		list2.insertAtHead(5);
+//		list2.insertAtHead(6);
+//		list2.insertAtHead(4);
+//		list2.insertAtHead(9);
+//		
+//		list.addtionOfTwoLists( list, list2);
 
 		System.out.println("-----------------Inupt-----------------------");
-		list.print();
-
+//		list.print();
+		
+		list.reOrderList(list.head);
 //		System.out.println();
 //		boolean isPalindrome =  list.palindromeCheck();
 //
@@ -997,9 +1160,9 @@ public class LinkedList {
 		
 //		list.rotateList();
 		
-//		list.partitionList();
-		Node newHead= list.mergeSort(list.head);
-		list.print(newHead);
+////		list.partitionList();
+//		Node newHead= list.mergeSort(list.head);
+//		list.print(newHead);
 
 	}
 

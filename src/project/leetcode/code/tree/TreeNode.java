@@ -3,9 +3,9 @@ package project.leetcode.code.tree;
 public class TreeNode {
 
 	public int data;
-	
+
 	public int hd;
-	
+
 	public TreeNode leftNode;
 
 	public TreeNode rightNode;
@@ -15,6 +15,11 @@ public class TreeNode {
 		this.data = data;
 	}
 
+	@Override
+	public String toString() {
+		return "TreeNode [data=" + data + "]";
+	}
 	
 	
+
 }

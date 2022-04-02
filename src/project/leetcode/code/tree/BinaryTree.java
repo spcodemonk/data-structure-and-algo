@@ -2,6 +2,7 @@ package project.leetcode.code.tree;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -375,8 +376,8 @@ public class BinaryTree {
 		data.entrySet().stream().forEach(entry -> System.out.println(entry.getValue()));
 
 	}
-	
-	//Top view of binary treee
+
+	// Top view of binary treee
 	public void topViewOfBinaryTree(TreeNode rootNode) {
 		Map<Integer, List<Integer>> data = new HashMap<>();
 
@@ -412,45 +413,42 @@ public class BinaryTree {
 
 		}
 
-
-
 		List<Integer> dt = data.entrySet().stream().map(entry -> {
 			return entry.getValue().get(0);
 		}).collect(Collectors.toList());
 
 		System.out.println(dt);
 	}
-	
-	//Left view of a tree 
+
+	// Left view of a tree
 	public void leftViewOfATree(TreeNode rootNode) {
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		Map<Integer,List<Integer>> data = new HashMap<>();
-		int level=0;
+		Map<Integer, List<Integer>> data = new HashMap<>();
+		int level = 0;
 		queue.add(rootNode);
 		queue.add(null);
-		
+
 		ArrayList<Integer> lst = new ArrayList<>();
 		data.put(level, lst);
-		
-		
+
 		StringBuilder sb = new StringBuilder();
-		while (!queue.isEmpty() ) {
+		while (!queue.isEmpty()) {
 
 			TreeNode node = queue.remove();
-			if(node==null) {
-				if(queue.peek()==null) {
+			if (node == null) {
+				if (queue.peek() == null) {
 					break;
 				}
 				queue.add(null);
-				level=level+1;
+				level = level + 1;
 				lst = new ArrayList<>();
 				data.put(level, lst);
-			}else {
-					lst = (ArrayList<Integer>) data.get(level);
-					lst.add(node.data);
+			} else {
+				lst = (ArrayList<Integer>) data.get(level);
+				lst.add(node.data);
 				data.put(level, lst);
 			}
-			
+
 			if (node != null && node.leftNode != null) {
 				queue.add(node.leftNode);
 			}
@@ -463,40 +461,39 @@ public class BinaryTree {
 		List<Integer> dt = data.entrySet().stream().map(entry -> {
 			return entry.getValue().get(0);
 		}).collect(Collectors.toList());
-		
+
 		System.out.println(dt);
 	}
-	
-	//right view of a binary tree 
+
+	// right view of a binary tree
 	public void rightViewOfATree(TreeNode rootNode) {
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		Map<Integer,List<Integer>> data = new HashMap<>();
-		int level=0;
+		Map<Integer, List<Integer>> data = new HashMap<>();
+		int level = 0;
 		queue.add(rootNode);
 		queue.add(null);
-		
+
 		ArrayList<Integer> lst = new ArrayList<>();
 		data.put(level, lst);
-		
-		
+
 		StringBuilder sb = new StringBuilder();
-		while (!queue.isEmpty() ) {
+		while (!queue.isEmpty()) {
 
 			TreeNode node = queue.remove();
-			if(node==null) {
-				if(queue.peek()==null) {
+			if (node == null) {
+				if (queue.peek() == null) {
 					break;
 				}
 				queue.add(null);
-				level=level+1;
+				level = level + 1;
 				lst = new ArrayList<>();
 				data.put(level, lst);
-			}else {
-					lst = (ArrayList<Integer>) data.get(level);
-					lst.add(node.data);
+			} else {
+				lst = (ArrayList<Integer>) data.get(level);
+				lst.add(node.data);
 				data.put(level, lst);
 			}
-			
+
 			if (node != null && node.leftNode != null) {
 				queue.add(node.leftNode);
 			}
@@ -507,43 +504,42 @@ public class BinaryTree {
 
 		}
 		List<Integer> dt = data.entrySet().stream().map(entry -> {
-			return entry.getValue().get(entry.getValue().size()-1);
+			return entry.getValue().get(entry.getValue().size() - 1);
 		}).collect(Collectors.toList());
-		
+
 		System.out.println(dt);
 	}
 
-	//Find Largest Value in Each Tree Row
+	// Find Largest Value in Each Tree Row
 	public void largestValueInEachRow(TreeNode rootNode) {
-		
+
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		Map<Integer,List<Integer>> data = new HashMap<>();
-		int level=0;
+		Map<Integer, List<Integer>> data = new HashMap<>();
+		int level = 0;
 		queue.add(rootNode);
 		queue.add(null);
-		
+
 		ArrayList<Integer> lst = new ArrayList<>();
 		data.put(level, lst);
-		
-		
+
 		StringBuilder sb = new StringBuilder();
-		while (!queue.isEmpty() ) {
+		while (!queue.isEmpty()) {
 
 			TreeNode node = queue.remove();
-			if(node==null) {
-				if(queue.peek()==null) {
+			if (node == null) {
+				if (queue.peek() == null) {
 					break;
 				}
 				queue.add(null);
-				level=level+1;
+				level = level + 1;
 				lst = new ArrayList<>();
 				data.put(level, lst);
-			}else {
-					lst = (ArrayList<Integer>) data.get(level);
-					lst.add(node.data);
+			} else {
+				lst = (ArrayList<Integer>) data.get(level);
+				lst.add(node.data);
 				data.put(level, lst);
 			}
-			
+
 			if (node != null && node.leftNode != null) {
 				queue.add(node.leftNode);
 			}
@@ -554,43 +550,42 @@ public class BinaryTree {
 
 		}
 		List<Integer> dt = data.entrySet().stream().map(entry -> {
-			return entry.getValue().stream().sorted().collect(Collectors.toList()).get(entry.getValue().size()-1);
+			return entry.getValue().stream().sorted().collect(Collectors.toList()).get(entry.getValue().size() - 1);
 		}).collect(Collectors.toList());
-		
+
 		System.out.println(dt);
 	}
-	
-	//Even Odd Tree
-public void evenOddTree(TreeNode rootNode) {
-		
+
+	// Even Odd Tree
+	public void evenOddTree(TreeNode rootNode) {
+
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		Map<Integer,List<Integer>> data = new HashMap<>();
-		int level=0;
+		Map<Integer, List<Integer>> data = new HashMap<>();
+		int level = 0;
 		queue.add(rootNode);
 		queue.add(null);
-		
+
 		ArrayList<Integer> lst = new ArrayList<>();
 		data.put(level, lst);
-		
-		
+
 		StringBuilder sb = new StringBuilder();
-		while (!queue.isEmpty() ) {
+		while (!queue.isEmpty()) {
 
 			TreeNode node = queue.remove();
-			if(node==null) {
-				if(queue.peek()==null) {
+			if (node == null) {
+				if (queue.peek() == null) {
 					break;
 				}
 				queue.add(null);
-				level=level+1;
+				level = level + 1;
 				lst = new ArrayList<>();
 				data.put(level, lst);
-			}else {
-					lst = (ArrayList<Integer>) data.get(level);
-					lst.add(node.data);
+			} else {
+				lst = (ArrayList<Integer>) data.get(level);
+				lst.add(node.data);
 				data.put(level, lst);
 			}
-			
+
 			if (node != null && node.leftNode != null) {
 				queue.add(node.leftNode);
 			}
@@ -600,9 +595,7 @@ public void evenOddTree(TreeNode rootNode) {
 			}
 
 		}
-		
-		
-		
+
 		for (Map.Entry<Integer, List<Integer>> entry : data.entrySet()) {
 
 			int treeLevel = entry.getKey();
@@ -630,7 +623,7 @@ public void evenOddTree(TreeNode rootNode) {
 			}
 		}
 		System.out.println(true);
-    }
+	}
 //		List<Integer> dt = data.entrySet().stream().map(entry -> {
 //			return entry.getValue().stream().sorted().collect(Collectors.toList()).get(entry.getValue().size()-1);
 //		}).collect(Collectors.toList());
@@ -686,37 +679,35 @@ public void evenOddTree(TreeNode rootNode) {
 		System.out.println(dt);
 
 	}
-	
-	//level order traversal
+
+	// level order traversal
 	public void levelOrderTraversal(TreeNode rootNode) {
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		Map<Integer,List<Integer>> data = new HashMap<>();
-		int level=0;
+		Map<Integer, List<Integer>> data = new HashMap<>();
+		int level = 0;
 		queue.add(rootNode);
 		queue.add(null);
-		
+
 		ArrayList<Integer> lst = new ArrayList<>();
 		data.put(level, lst);
-		
-		
-		StringBuilder sb = new StringBuilder();
-		while (!queue.isEmpty() ) {
+
+		while (!queue.isEmpty()) {
 
 			TreeNode node = queue.remove();
-			if(node==null) {
-				if(queue.peek()==null) {
+			if (node == null) {
+				if (queue.peek() == null) {
 					break;
 				}
 				queue.add(null);
-				level=level+1;
+				level = level + 1;
 				lst = new ArrayList<>();
 				data.put(level, lst);
-			}else {
-					lst = (ArrayList<Integer>) data.get(level);
-					lst.add(node.data);
+			} else {
+				lst = (ArrayList<Integer>) data.get(level);
+				lst.add(node.data);
 				data.put(level, lst);
 			}
-			
+
 			if (node != null && node.leftNode != null) {
 				queue.add(node.leftNode);
 			}
@@ -726,9 +717,9 @@ public void evenOddTree(TreeNode rootNode) {
 			}
 
 		}
-		
+
 //		data.entrySet().stream().forEach(entry -> System.out.println(entry.getKey() +" ---> "+entry.getValue()) );
-		
+
 		List<List<Integer>> dt = data.entrySet().stream().map(entry -> {
 			List<Integer> lst1 = new ArrayList<>();
 
@@ -740,6 +731,45 @@ public void evenOddTree(TreeNode rootNode) {
 
 	}
 	
+	//Maximum Level Sum of a Binary Tree
+	public void maxLevelSum(TreeNode rootNode) {
+		Queue<TreeNode> queue = new LinkedList<>();
+
+		Map<Integer, Integer> mapData = new HashMap<>();
+		int level = 1;
+		queue.add(rootNode);
+		queue.add(null);
+
+		while (!queue.isEmpty()) {
+
+			TreeNode node = queue.remove();
+
+			if (node != null) {
+				
+				mapData.put(level, (mapData.getOrDefault(level, 0)+node.data));
+				
+				if (node.leftNode != null) {
+					queue.add(node.leftNode);
+				}
+
+				if (node.rightNode != null) {
+					queue.add(node.rightNode);
+				}
+			} else {
+				if (queue.peek() == null) {
+					break;
+				}
+				
+				level = level + 1;
+				queue.add(null);
+
+			}
+
+		}
+		
+		System.out.println(Collections.max(mapData.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey());
+		System.out.println(mapData);
+	}
 
 	public boolean symetricTree(TreeNode root1, TreeNode root2) {
 
@@ -773,14 +803,137 @@ public void evenOddTree(TreeNode rootNode) {
 		return true;
 
 	}
+
 	public int sumOfAllNodes(TreeNode rootNode) {
-		
-		if(rootNode==null) {
+
+		if (rootNode == null) {
 			return 0;
-		}		
+		}
 
 		return rootNode.data + (sumOfAllNodes(rootNode.leftNode) + sumOfAllNodes(rootNode.rightNode));
 
 	}
+
+	// check if both tree are same recursive
+	public boolean checkSameTree(TreeNode rootNode1, TreeNode rootNode2) {
+
+		if (rootNode1 == null && rootNode2 == null) {
+			return true;
+		}
+
+		if (rootNode1 != null && rootNode2 != null) {
+
+			if (rootNode1.data == rootNode2.data && checkSameTree(rootNode1.leftNode, rootNode2.leftNode)
+					&& checkSameTree(rootNode1.rightNode, rootNode2.rightNode)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// check if both tree are symetric- mirror
+	public boolean mirror(TreeNode rootNode1, TreeNode rootNode2) {
+
+		if (rootNode1 == null && rootNode2 == null) {
+			return true;
+		}
+
+		if (rootNode1 == null || rootNode2 == null) {
+			return false;
+		}
+
+		if (rootNode1 != null && rootNode2 != null) {
+
+			if (rootNode1.data == rootNode2.data && mirror(rootNode1.leftNode, rootNode2.rightNode)
+					&& mirror(rootNode1.rightNode, rootNode2.leftNode)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Univalued binary tree
+	public boolean uniValuedTree(TreeNode rootNode1) {
+
+		Stack<TreeNode> data = new Stack<>();
+
+		data.add(rootNode1.leftNode);
+		data.add(rootNode1.rightNode);
+
+		int value = rootNode1.data;
+
+		while (!data.isEmpty()) {
+
+			TreeNode node = data.pop();
+
+			if (node.data != value) {
+				return false;
+			}
+			if (node.leftNode != null) {
+				data.add(node.leftNode);
+			}
+
+			if (node.rightNode != null) {
+				data.add(node.rightNode);
+			}
+
+		}
+
+		return true;
+	}
+
+	// Leaf-Similar Trees
+	public boolean leafSimilarTrees(TreeNode root1, TreeNode root2) {
+
+		Stack<TreeNode> tree1 = new Stack<>();
+
+		Queue<TreeNode> tree1Leaf = new ArrayDeque<>();
+
+		tree1.add(root1);
+		while (!tree1.isEmpty()) {
+
+			TreeNode node = tree1.pop();
+
+			if (node.leftNode != null) {
+				tree1.add(node.leftNode);
+			}
+
+			if (node.rightNode != null) {
+				tree1.add(node.rightNode);
+			}
+
+			if (node.leftNode == null && node.rightNode == null) {
+				tree1Leaf.add(node);
+			}
+		}
+
+		System.out.println(tree1Leaf.toString());
+		Stack<TreeNode> tree2 = new Stack<>();
+		
+		tree2.add(root2);
+		while (!tree2.isEmpty()) {
+
+			TreeNode node = tree2.pop();
+
+			if (node.leftNode != null) {
+				tree2.add(node.leftNode);
+			}
+
+			if (node.rightNode != null) {
+				tree2.add(node.rightNode);
+			}
+
+			if (node.leftNode == null && node.rightNode == null) {
+				
+				TreeNode temp = tree1Leaf.remove();
+				
+				if(temp.data!=node.data)return false;
+			}
+		}
+		
+		return tree1Leaf.isEmpty();
+	}
+	
+	
 
 }

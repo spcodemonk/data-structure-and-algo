@@ -2,7 +2,6 @@ package project.leetcode.stream.example;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -47,17 +46,55 @@ public class StreamExamples {
 		
 //		System.out.println(employeeList.stream().filter(obj-> obj.getAge()> 25).findFirst().get());
 //		
-		List<Integer> array = Arrays.asList(0, 0, 4, 6, 8);
-//		  
-		int sum = array.stream().reduce(2,(a,b)->a+b);
+//		List<Integer> array = Arrays.asList(0, 1, 2, 3, 4);
+//		
+//		
+//		List<String> array2 = Arrays.asList("sharad","Pawar","Hari","Jadu");
+//		
+//		String str = array2.stream().collect(Collectors.joining(", ", "Jr", "Mr. "));
+//		System.out.println(str);
 		
-//		 String[] array = { "Geeks", "for", "Geeks" };
-//		 
-//		 System.out.println(Arrays.stream(array).reduce((a,b)-> a+"-"+b).get());
-		 
-		Map<String,String> data = Collections.EMPTY_MAP;
-		data.put("1", "1");
-		System.out.println(data);
+		Integer [] arr= new Integer[] {4,2,5,7};
+		Integer [] ans= new Integer[arr.length];
+		
+		int t=0;
+		for(int i=0;i<arr.length;i++) {
+			
+			if(arr[i]%2==0) {
+				ans[t]=arr[i];
+				t+=2;
+			}
+		}
+		
+		t=1;
+		for (int i = 0; i < arr.length; i++) {
+
+			if (arr[i] % 2 == 1) {
+				ans[t] = arr[i];
+				t += 2;
+			}
+		}
+		System.out.println(Arrays.toString(ans));
+		
+//		System.out.println(intSummaryStatistics.getCount());
+//		List<Integer> array1 = Arrays.asList(5, 6);
+//		
+//		List<Integer> array2 = Arrays.asList(7, 8, 9);
+////		  
+//		List<List<Integer> >data = new ArrayList<>();
+//		
+//		data.add(array);
+//		data.add(array1);
+//		data.add(array2);
+//		
+//		
+//		System.out.println(IntStream.of(1,2,3,4,5,6,3,6).max().getAsInt());
+//
+//		
+//		System.out.println(data.stream().flatMap(obj ->obj.stream()).mapToInt(Integer::intValue).boxed().min(Comparator.comparing(Integer::intValue)));
+//		
+//		
+//		System.out.println(data.parallelStream().flatMap(obj->obj.stream()).collect(Collectors.toList()));
 //		System.out.println(sum);
 		
 		// Query 1 : How many male and female employees are there in the organization?
