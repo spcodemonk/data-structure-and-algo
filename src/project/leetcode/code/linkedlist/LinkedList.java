@@ -1110,18 +1110,60 @@ public class LinkedList {
 		
 		return null;
 	}
+	
+	//Swap Node, statring kth and ending kth  
+	public Node swapNodes(Node head, int k) {
+
+		Node startK = null;
+		Node endK = null;
+
+		Node firstPointer = head;
+		Node secondPointer = head;
+
+		int count = 1;
+		while (count < k && firstPointer != null) {
+
+			firstPointer = firstPointer.next;
+			count++;
+		}
+		startK = firstPointer;
+
+		firstPointer=firstPointer.next;
+		while(firstPointer!=null) {
+			secondPointer=secondPointer.next;
+			firstPointer=firstPointer.next;
+			
+		}
+		endK=secondPointer;
+
+		int value = startK.data;
+		startK.data= endK.data;
+		endK.data=value;
+		return head;
+	}
+
 	public static void main(String[] args) {
 
 		LinkedList list = new LinkedList();
 
 //		list.insertAtHead(9);
 //		list.insertAtHead(9);
+//		list.insertAtHead(5);
+//		list.insertAtHead(4);
+//		list.insertAtHead(3);
+//		list.insertAtHead(2);
+//		list.insertAtHead(1);
+		
 		list.insertAtHead(5);
-		list.insertAtHead(4);
+		list.insertAtHead(9);
+		list.insertAtHead(0);
 		list.insertAtHead(3);
-		list.insertAtHead(2);
-		list.insertAtHead(1);
-
+		list.insertAtHead(8);
+		list.insertAtHead(7);
+		list.insertAtHead(6);
+		list.insertAtHead(6);
+		list.insertAtHead(9);
+		list.insertAtHead(7);
 		LinkedList list2 = new LinkedList();
 //		
 //
@@ -1134,9 +1176,10 @@ public class LinkedList {
 //		list.addtionOfTwoLists( list, list2);
 
 		System.out.println("-----------------Inupt-----------------------");
-//		list.print();
-		
-		list.reOrderList(list.head);
+		list.print();
+		list.swapNodes(list.head, 5);
+		list.print();
+//		list.reOrderList(list.head);
 //		System.out.println();
 //		boolean isPalindrome =  list.palindromeCheck();
 //
