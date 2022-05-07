@@ -15,17 +15,31 @@ public class BinaryTreeTest {
 		tree.add(15);
 		tree.add(30);
 		TreeNode node= tree.add(7);
-		
+//		
+//		tree.binaryTreePaths(node);
+//		tree.maxiMumDepthOfNarTree(node);
+//		tree.averageOfLevel(node);
+		tree.levelOrderTraversal2(node);
+//		tree.IncreasingOrderSearchTree(node);
+//		tree.kthSmallestElementinaBST(node);
+
+//		TreeNode node1 = tree.SearchInBinaryTree(node, 20);
+//		tree.zigZackTraversal(node);
+//		tree.inOrderTraversalForGreater(node);
+//		System.out.println("-----------------------------");
+//		tree.inOrderTraversal(node);
+////		System.out.println();
 //		BinaryTree tree1 = new BinaryTree();
 //		//add method return the root of tree every time you add any new node
+//		tree1.add(1);
+//		tree1.add(2);
 //		tree1.add(3);
-//		tree1.add(9);
-//		tree1.add(20);
-//		tree1.add(15);
-//		tree1.add(30);
+//		tree1.add(4);
+////		tree1.add(5);
 //		
-//		TreeNode node1= tree1.add(7);
-////		
+//		
+//		TreeNode node1= tree1.add(5);
+//		tree.zigZackTraversal(node1);	
 		
 		
 //		tree.inOrderTraversal(node);
@@ -40,7 +54,7 @@ public class BinaryTreeTest {
 //		System.out.println(tree.sumOfAllNodes(node));
 		
 //		System.out.println(tree.leafSimilarTrees(node,null));
-		tree.maxLevelSum(node);
+//		tree.maxLevelSum(node);
 //		tree.topViewOfBinaryTree(node);
 //		tree.leftViewOfATree(node);
 //		tree.rightViewOfATree(node);

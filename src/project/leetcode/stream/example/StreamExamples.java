@@ -13,7 +13,7 @@ public class StreamExamples {
 	static {
 		
 		employeeList.add(new Employee(122, "Paul Niksui", 25, "Male", "Sales And Marketing", 2015, 13500.0));
-		employeeList.add(new Employee(133, "Jiya Brein", 29, "Male", "Infrastructure", 2012, 18000.0));
+		employeeList.add(new Employee(122, "Jiya Brein", 29, "Male", "Infrastructure", 2012, 18000.0));
 		employeeList.add(new Employee(144, "Murali Gowda", 28, "Male", "Product Development", 2014, 32500.0));
 		employeeList.add(new Employee(155, "Nima Roy", 27, "Female", "HR", 2013, 22700.0));
 		employeeList.add(new Employee(166, "Iqbal Hussain", 43, "Male", "Security And Transport", 2016, 10500.0));
@@ -34,7 +34,10 @@ public class StreamExamples {
 	}
 	
 	public static void main(String[] args) {
-		
+//		
+//		Map<Integer,String> data = employeeList.stream().collect(Collectors.toMap(Employee::getId, Employee::getName,(old,newval)->newval));
+//		System.out.println(data);
+		System.out.println(employeeList.stream().collect(Collectors.groupingBy(Employee::getId,Collectors.toList())));
 //		employeeList.sort(Comparator.comparing(Employee::getAge).reversed().thenComparing(Employee::getId));
 //		System.out.println(employeeList);
 		
@@ -54,27 +57,27 @@ public class StreamExamples {
 //		String str = array2.stream().collect(Collectors.joining(", ", "Jr", "Mr. "));
 //		System.out.println(str);
 		
-		Integer [] arr= new Integer[] {4,2,5,7};
-		Integer [] ans= new Integer[arr.length];
-		
-		int t=0;
-		for(int i=0;i<arr.length;i++) {
-			
-			if(arr[i]%2==0) {
-				ans[t]=arr[i];
-				t+=2;
-			}
-		}
-		
-		t=1;
-		for (int i = 0; i < arr.length; i++) {
-
-			if (arr[i] % 2 == 1) {
-				ans[t] = arr[i];
-				t += 2;
-			}
-		}
-		System.out.println(Arrays.toString(ans));
+//		Integer [] arr= new Integer[] {4,2,5,7};
+//		Integer [] ans= new Integer[arr.length];
+//		
+//		int t=0;
+//		for(int i=0;i<arr.length;i++) {
+//			
+//			if(arr[i]%2==0) {
+//				ans[t]=arr[i];
+//				t+=2;
+//			}
+//		}
+//		
+//		t=1;
+//		for (int i = 0; i < arr.length; i++) {
+//
+//			if (arr[i] % 2 == 1) {
+//				ans[t] = arr[i];
+//				t += 2;
+//			}
+//		}
+//		System.out.println(Arrays.toString(ans));
 		
 //		System.out.println(intSummaryStatistics.getCount());
 //		List<Integer> array1 = Arrays.asList(5, 6);

@@ -2,6 +2,7 @@ package project.leetcode.code.tree;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -165,26 +166,92 @@ public class BinaryTree {
 	}
 
 	// Depth first search using stack
-	public void depthFirstSearchTraverslaWithStack(TreeNode rootNode) {
+	public void inOrderNonRecursive(TreeNode rootNode) {
 
 		System.out.println("------------------------------");
 		Stack<TreeNode> data = new Stack<>();
-		data.add(rootNode);
 
-		while (!data.isEmpty()) {
-			TreeNode node = data.pop();
+		TreeNode current = rootNode;
 
-			if (node.rightNode != null) {
-				data.add(node.rightNode);
+		while (current != null || !data.isEmpty()) {
+
+			if (current != null) {
+
+				data.add(current);
+				current = current.leftNode;
+			} else {
+				TreeNode node = data.pop();
+				current = node.rightNode;
+
+				System.out.println(node.data);
 			}
-			if (node.leftNode != null) {
-				data.add(node.leftNode);
-			}
-
-			System.out.println(node.data);
 
 		}
 
+	}
+
+	// Kth Smallest Element in a BST
+	public int kthSmallestElementinaBST(TreeNode rootNode) {
+
+		Stack<TreeNode> data = new Stack<>();
+
+		TreeNode current = rootNode;
+		int count = 0;
+		int k = 2;
+		while (current != null || !data.isEmpty()) {
+
+			if (current != null) {
+
+				data.add(current);
+				current = current.leftNode;
+			} else {
+				TreeNode node = data.pop();
+				current = node.rightNode;
+
+				++count;
+				if (count == k) {
+//					return node.data;
+					System.out.println(node.data);
+				}
+//				System.out.println(node.data);
+			}
+
+		}
+
+		return 0;
+	}
+
+	// Increasing Order Search Tree
+	public TreeNode IncreasingOrderSearchTree(TreeNode rootNode) {
+
+		System.out.println("------------------------------");
+		Stack<TreeNode> data = new Stack<>();
+
+		TreeNode current = rootNode;
+
+		TreeNode newTree = new TreeNode(0);
+		TreeNode temp = newTree;
+
+		BinaryTree tree = new BinaryTree();
+		while (current != null || !data.isEmpty()) {
+
+			if (current != null) {
+
+				data.add(current);
+				current = current.leftNode;
+			} else {
+				TreeNode node = data.pop();
+				current = node.rightNode;
+
+				temp.rightNode = node;
+				temp.leftNode = null;
+				temp = temp.rightNode;
+				System.out.println(node.data);
+			}
+
+		}
+		System.out.println();
+		return newTree.rightNode;
 	}
 
 	// breadth first search suing queue
@@ -293,6 +360,25 @@ public class BinaryTree {
 
 	// find min depth of tree
 	public int findminDepthOfTree(TreeNode rootNode) {
+
+		if (rootNode == null) {
+			return 0;
+		}
+
+		if (rootNode.leftNode == null && rootNode.rightNode == null)
+			return 1;
+
+		int depthl = Integer.MAX_VALUE, depthr = Integer.MAX_VALUE;
+
+		depthl = findminDepthOfTree(rootNode.leftNode);
+
+		depthr = findminDepthOfTree(rootNode.rightNode);
+
+		return Math.min(depthl, depthr) + 1;
+	}
+
+	// find min depth of tree
+	public int findminDepthOfTree1(TreeNode rootNode) {
 
 		if (rootNode == null) {
 			return 0;
@@ -506,8 +592,156 @@ public class BinaryTree {
 		List<Integer> dt = data.entrySet().stream().map(entry -> {
 			return entry.getValue().get(entry.getValue().size() - 1);
 		}).collect(Collectors.toList());
-
+		
+		
 		System.out.println(dt);
+
+		
+		
+		
+	}
+	
+	// Binary Tree Level Order Traversal II
+	public void levelOrderTraversal2(TreeNode rootNode) {
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		List<List<Integer>> result=new ArrayList<>();
+		
+		if(rootNode!=null) {
+			queue.add(rootNode);
+			
+		}
+		
+		while(!queue.isEmpty()) {
+			int size= queue.size();
+			
+			List<Integer> inner = new ArrayList<>();
+			while(size>0) {
+				
+				TreeNode node = queue.remove();
+				
+				if(node.leftNode!=null) {
+					queue.add(node.leftNode);
+				}
+				
+				if(node.rightNode!=null) {
+					queue.add(node.rightNode);
+				}
+				inner.add(node.data);
+				size--;
+			}
+			result.add(inner);
+			
+			
+		}
+		Collections.reverse(result);
+		System.out.println(result);
+	}
+
+	// ZIgZag Order traversal
+	public void zigZackTraversal(TreeNode rootNode) {
+
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+
+		queue.add(rootNode);
+		queue.add(null);
+
+		int level = 1;
+		Map<Integer, List<Integer>> data = new HashMap<>();
+		ArrayList<Integer> lst = new ArrayList<>();
+		data.put(level, lst);
+
+		while (!queue.isEmpty()) {
+
+			TreeNode node = queue.remove();
+
+			if (node == null) {
+
+				List reverse = data.get(level);
+				Collections.reverse(reverse);
+				data.put(level, reverse);
+				if (queue.peek() == null) {
+					continue;// reached to end so, no need to process further
+				}
+
+				level = level + 1;
+				queue.add(null);
+				data.put(level, new ArrayList<>());
+				continue;// if null element is there then move to next to next element after incrementing
+							// the level
+			} else {
+				// for each level we have level as key ind value is all the elements in that
+				// level in the form of arraylist
+				List<Integer> list = data.get(level);
+				list.add(node.data);
+				data.put(level, list);
+			}
+
+			if (node.leftNode != null) {
+
+				queue.add(node.leftNode);
+			}
+
+			if (node.rightNode != null) {
+				queue.add(node.rightNode);
+			}
+
+		}
+
+		List<List<Integer>> listData = new ArrayList<>();
+
+		System.out.println(data.entrySet().stream().map(entry -> entry.getValue()).collect(Collectors.toList()));
+//		System.out.println(data.toString());
+		
+
+
+	}
+
+	// Average of Levels in Binary Tree
+	public void averageOfLevel(TreeNode rootNode) {
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		Map<Integer, List<Integer>> data = new HashMap<>();
+		int level = 0;
+		queue.add(rootNode);
+		queue.add(null);
+
+		ArrayList<Integer> lst = new ArrayList<>();
+		data.put(level, lst);
+
+		List<Double> result = new ArrayList<>();
+		while (!queue.isEmpty()) {
+
+			TreeNode node = queue.remove();
+
+			if (node == null) {
+				lst = (ArrayList<Integer>) data.get(level);
+
+				result.add(lst.stream().mapToInt(a -> a).average().getAsDouble());
+				if (queue.peek() == null) {
+					break;
+				}
+
+				queue.add(null);
+				level = level + 1;
+				lst = new ArrayList<>();
+				data.put(level, lst);
+			} else {
+				lst = (ArrayList<Integer>) data.get(level);
+				lst.add(node.data);
+				data.put(level, lst);
+			}
+
+			if (node != null && node.leftNode != null) {
+				queue.add(node.leftNode);
+			}
+
+			if (node != null && node.rightNode != null) {
+				queue.add(node.rightNode);
+			}
+
+		}
+
+		System.out.println(result);
+
 	}
 
 	// Find Largest Value in Each Tree Row
@@ -730,8 +964,8 @@ public class BinaryTree {
 		System.out.println(dt);
 
 	}
-	
-	//Maximum Level Sum of a Binary Tree
+
+	// Maximum Level Sum of a Binary Tree
 	public void maxLevelSum(TreeNode rootNode) {
 		Queue<TreeNode> queue = new LinkedList<>();
 
@@ -745,9 +979,9 @@ public class BinaryTree {
 			TreeNode node = queue.remove();
 
 			if (node != null) {
-				
-				mapData.put(level, (mapData.getOrDefault(level, 0)+node.data));
-				
+
+				mapData.put(level, (mapData.getOrDefault(level, 0) + node.data));
+
 				if (node.leftNode != null) {
 					queue.add(node.leftNode);
 				}
@@ -759,14 +993,14 @@ public class BinaryTree {
 				if (queue.peek() == null) {
 					break;
 				}
-				
+
 				level = level + 1;
 				queue.add(null);
 
 			}
 
 		}
-		
+
 		System.out.println(Collections.max(mapData.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey());
 		System.out.println(mapData);
 	}
@@ -909,7 +1143,7 @@ public class BinaryTree {
 
 		System.out.println(tree1Leaf.toString());
 		Stack<TreeNode> tree2 = new Stack<>();
-		
+
 		tree2.add(root2);
 		while (!tree2.isEmpty()) {
 
@@ -924,16 +1158,104 @@ public class BinaryTree {
 			}
 
 			if (node.leftNode == null && node.rightNode == null) {
-				
+
 				TreeNode temp = tree1Leaf.remove();
-				
-				if(temp.data!=node.data)return false;
+
+				if (temp.data != node.data)
+					return false;
 			}
 		}
-		
+
 		return tree1Leaf.isEmpty();
 	}
-	
-	
+
+	// Search in binary search tree and return the tree from the node
+	public TreeNode SearchInBinaryTree(TreeNode root, int val) {
+		TreeNode node = null;
+
+		if (root != null) {
+			if (root.data == val) {
+				return root;
+			}
+
+			node = SearchInBinaryTree(root.leftNode, val);
+			if (node == null) {
+				node = SearchInBinaryTree(root.rightNode, val);
+			}
+		}
+
+		return node;
+	}
+
+	int sum = 0;
+
+	public TreeNode inOrderTraversalForGreater(TreeNode rootNode) {
+
+		if (rootNode != null) {
+			inOrderTraversalForGreater(rootNode.rightNode);
+
+			sum += root.data;
+			root.data = sum;
+//			 System.out.println(rootNode.data);
+			inOrderTraversalForGreater(rootNode.leftNode);
+
+		}
+
+		return root;
+	}
+
+	// Binary Tree Paths
+	public void binaryTreePaths(TreeNode root) {
+		List<String> paths = new ArrayList<>();
+
+		dfs(root, "", paths);
+		System.out.println(paths);
+	}
+
+	private void dfs(TreeNode root, String path, List<String> paths) {
+		path += root.data;
+
+		if (root.leftNode == null && root.rightNode == null) {
+			paths.add(path);
+		}
+
+		if (root.leftNode != null) {
+			dfs(root.leftNode, path + "->", paths);
+		}
+		if (root.rightNode != null) {
+			dfs(root.rightNode, path + "->", paths);
+		}
+
+	}
+
+	// Maximum Depth of N-ary Tree
+	public void maxiMumDepthOfNarTree(TreeNode root) {
+
+		ArrayList<Integer> data = new ArrayList<>();
+
+		int path = 0;
+		dfs1(root, path, data);
+
+		System.out.println(data);
+
+		System.out.println(data.stream().mapToInt(a -> a).max().getAsInt());
+
+	}
+
+	private void dfs1(TreeNode root, int path, List<Integer> paths) {
+		path += 1;
+
+		if (root.leftNode == null && root.rightNode == null) {
+			paths.add(path);
+		}
+
+		if (root.leftNode != null) {
+			dfs1(root.leftNode, path, paths);
+		}
+		if (root.rightNode != null) {
+			dfs1(root.rightNode, path, paths);
+		}
+
+	}
 
 }
